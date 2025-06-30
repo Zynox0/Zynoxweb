@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ZYNOK</title>
+<style>
+  body, html {
+    margin: 0; padding: 0; height: 100%;
+    background-color: black;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+  }
+
+  #girisEkrani {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: black;
+  }
+
+  #girisEkrani img {
+    max-width: 150px;
+    margin-bottom: 10px;
+  }
+
+  #girisEkrani #fontText {
+    font-style: italic;
+    font-weight: 400;
+    font-size: 3rem;
+    margin-bottom: 10px;
+    user-select: none;
+    color: white;
+  }
+
+  #loadingBarContainer {
+    position: relative;
+    width: 120px;
+    height: 5px;
+    background-color: rgba(255,255,255,0.15);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 30px;
+  }
+
+  #loadingBar {
+    position: absolute;
+    height: 100%;
+    width: 0;
+    background-color: white;
+    border-radius: 3px;
+    animation: loadAnim 3s forwards;
+  }
+
+  @keyframes loadAnim {
+    to { width: 100%; }
+  }
+
+  #anaSayfa {
+    display: none;
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 50px;
+  }
+
+  ul li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  ul li .icon {
+    width: 70px;
+    height: 70px;
+    filter: grayscale(100%) brightness(0.8);
+    opacity: 0.7;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+  }
+
+  ul li:hover .icon {
+    filter: grayscale(0%) brightness(1) drop-shadow(0 0 8px white);
+    opacity: 1;
+  }
+
+  ul li .text {
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 1.3rem;
+    user-select: none;
+  }
+
+  #fadeOverlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: black;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+    z-index: 9999;
+  }
+
+  #fadeOverlay.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+</style>
+</head>
+<body>
+
+<div id="girisEkrani">
+  <img src="Zynok.PNG" alt="ZYNOK Logo" />
+  <div id="fontText">𝑧𝑦𝑛𝑜𝑘</div>
+
+  <div id="loadingBarContainer">
+    <div id="loadingBar"></div>
+  </div>
+
+  <button id="downloadBtn" onclick="downloadFile()">Download</button>
+</div>
+
+<div id="anaSayfa">
+  <ul>
+    <li onclick="window.open('https://guns.lol/zynok', '_blank')">
+      <!-- Elle yapılmış sade siyah beyaz dünya ikonu -->
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="32" r="30" />
+        <path d="M10 20h44" />
+        <path d="M10 32h44" />
+        <path d="M10 44h44" />
+        <path d="M32 2v60" />
+        <path d="M20 6a30 30 0 0 1 0 52" />
+        <path d="M44 6a30 30 0 0 0 0 52" />
+      </svg>
+      <div class="text">guns.lol</div>
+    </li>
+    <li onclick="window.open('https://discord.gg/4RYk2Qdvwr', '_blank')">
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord" />
+      <div class="text">Discord</div>
+    </li>
+    <li onclick="window.open('https://youtube.com/@zynokk?si=f5twQOrt1AsqzbeP', '_blank')">
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube" />
+      <div class="text">YouTube</div>
+    </li>
+  </ul>
+</div>
+
+<div id="fadeOverlay"></div>
+
+<script>
+  function downloadFile() {
+    window.location.href = "dosya.zip";
+  }
+
+  setTimeout(() => {
+    const fade = document.getElementById('fadeOverlay');
+    fade.classList.add('active');
+    setTimeout(() => {
+      document.getElementById('girisEkrani').style.display = 'none';
+      document.getElementById('anaSayfa').style.display = 'flex';
+      fade.classList.remove('active');
+    }, 600);
+  }, 3000);
+</script>
+
+</body>
+</html>
